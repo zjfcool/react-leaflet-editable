@@ -1,7 +1,7 @@
 import React, { Component,createRef } from 'react'
 import ReactLeafletEditable from '../ReactLeafletEditable'
 import 'leaflet/dist/leaflet.css'
-import {Icon} from 'leaflet'
+import L, {Icon} from 'leaflet'
 import {Map ,TileLayer} from 'react-leaflet'
 import './styles.module.css'
 import markerIcon from'leaflet/dist/images/marker-icon.png'
@@ -22,7 +22,8 @@ export default class EditTest extends Component {
         this.state={
             isShow:true
         }
-        this.editRef = createRef()
+        this.editRef = createRef();
+        this.mapRef = createRef();
     }
     editPolygon=()=>{
         this.editRef.current.startPolygon()
@@ -51,8 +52,21 @@ export default class EditTest extends Component {
     clearAll =()=>{
         this.editRef.current.clearAll()
     }
+    prev = ()=>{
+        this.polyline.editor.continueBackward()
+    }
+    next = ()=>{
+        this.polyline.editor.continueForward();
+    }
     componentDidMount(){
-        // console.log(this.editRef)
+        const map = this.mapRef.current.leafletElement;
+        this.polyline = L.polyline([[43.1, 1.2], [43.2, 1.3],[43.3, 1.2]]).addTo(map);
+        console.log(this.polyline)
+        map.fitBounds(this.polyline.getBounds())
+        // L.fitBounds(polyline.getBounds())
+        this.polyline.enableEdit();
+        // this.polyline.editor.continueForward();
+        this.polyline.editor.continueBackward()
     }
     render() {
         const {
@@ -100,7 +114,7 @@ export default class EditTest extends Component {
                     >
                         <div style={{width:'100%',height:'40%'}}>
                             <Map 
-                                ref={createRef()}
+                                ref={this.mapRef}
                                 style={{
                                     height:"100%",
                                 }}
@@ -110,6 +124,14 @@ export default class EditTest extends Component {
                                 center={[35,105]}
                             >
                                 <div className="btn-group">
+                                    <button 
+                                        onClick={this.prev} 
+                                        className="editable-btn" 
+                                    >prev</button>
+                                    <button 
+                                        onClick={this.next} 
+                                        className="editable-btn" 
+                                    >next</button>
                                     <button 
                                         onClick={this.clearAll} 
                                         className="editable-btn" 
