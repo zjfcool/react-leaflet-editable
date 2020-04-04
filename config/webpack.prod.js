@@ -15,7 +15,9 @@ module.exports= smart(base,{
         libraryTarget:"commonjs2"
     },
     externals:[
-        nodeExternals()
+        nodeExternals({
+            whitelist:['prop-types']
+        })
     ],
     plugins:[
         new CleanWebpackPlugin()

@@ -8,6 +8,7 @@ function resolve(url){
 module.exports=smart(base,{
     mode:"development",
     entry:resolve('../src/app.js'),
+    devtool:"source-map",
     plugins:[
         new HtmlWebpackPlugin({
             template:resolve('../public/index.html')

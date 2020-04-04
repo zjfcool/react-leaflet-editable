@@ -80,7 +80,7 @@ export default class EditTest extends Component {
                     ?
                     <ReactLeafletEditable
                         ref={this.editRef}
-                        onEditing={(e,map)=>{console.log('onEditing')}}
+                        onEditing={1}
                         onEnable={(e,map)=>{console.log('onEnable')}}
                         onDisable={(e,map)=>{console.log('onDisable')}}
                         onStartDrawing={(e,map)=>{console.log('onStartDrawing')}}
