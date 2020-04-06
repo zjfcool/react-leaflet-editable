@@ -122,8 +122,11 @@ export default class ReactLeafletEditable extends Component {
         return props.editable;
     }
     _registerListeners = () => {
+        const {map} = this.state;
         Object.keys(eventHandlers).forEach(key => {
-            this[key]()
+            map&&map.on(eventHandlers[key],(e)=>{
+                this.props[key](e,map)
+            })
         })
     }
     _unregisterListeners = () => {
@@ -135,223 +138,6 @@ export default class ReactLeafletEditable extends Component {
     }
     _offListeners = () => {
 
-    }
-    onEditing = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onEditing, (e) => {
-            this.props.onEditing(e, map)
-        })
-    }
-    onEnable = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onEnable, (e) => {
-            this.props.onEnable(e, map)
-        })
-    }
-    onDisable = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onDisable, (e) => {
-            this.props.onDisable(e, map)
-        })
-    }
-    onStartDrawing = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onStartDrawing, (e) => {
-            this.props.onStartDrawing(e, map)
-        })
-    }
-    onDrawingClick = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onDrawingClick, (e) => {
-            this.props.onDrawingClick(e, map)
-        })
-    }
-    onDrawingCommit = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onDrawingCommit, (e) => {
-            this.props.onDrawingCommit(e, map)
-        })
-    }
-    onDrawingMouseDown = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onDrawingMouseDown, (e) => {
-            this.props.onDrawingMouseDown(e, map)
-        })
-    }
-    onDrawingMouseUp = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onDrawingMouseUp, (e) => {
-            this.props.onDrawingMouseUp(e, map)
-        })
-    }
-    onDrawingMove = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onDrawingMove, (e) => {
-            this.props.onDrawingMove(e, map)
-        })
-    }
-    onCancelDrawing = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onCancelDrawing, (e) => {
-            this.props.onCancelDrawing(e, map)
-        })
-    }
-    onEndDrawing = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onEndDrawing, (e) => {
-            this.props.onEndDrawing(e, map)
-        })
-    }
-    onDragStart = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onDragStart, (e) => {
-            this.props.onDragStart(e, map)
-        })
-    }
-    onDrag = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onDrag, (e) => {
-            this.props.onDrag(e, map)
-        })
-    }
-    onDragEnd = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onDragEnd, (e) => {
-            this.props.onDragEnd(e, map)
-        })
-    }
-    onVertexMarkerDrag = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexMarkerDrag, (e) => {
-            this.props.onVertexMarkerDrag(e, map)
-        })
-    }
-    onVertexMarkerDragStart = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexMarkerDragStart, (e) => {
-            this.props.onVertexMarkerDragStart(e, map)
-        })
-    }
-    onVertexMarkerDragEnd = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexMarkerDragEnd, (e) => {
-            this.props.onVertexMarkerDragEnd(e, map)
-        })
-    }
-    onVertextCtrlClick = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertextCtrlClick, (e) => {
-            this.props.onVertextCtrlClick(e, map)
-        })
-    }
-    onNewVertex = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onNewVertex, (e) => {
-            this.props.onNewVertex(e, map)
-        })
-    }
-    onVertexMarkerClick = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexMarkerClick, (e) => {
-            this.props.onVertexMarkerClick(e, map)
-        })
-    }
-    onVertexRawMarkerClick = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexRawMarkerClick, (e) => {
-            this.props.onVertexRawMarkerClick(e, map)
-        })
-    }
-    onVertexDeleted = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexDeleted, (e) => {
-            this.props.onVertexDeleted(e, map)
-        })
-    }
-    onVertexMarkerCtrlClick = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexMarkerCtrlClick, (e) => {
-            this.props.onVertexMarkerCtrlClick(e, map)
-        })
-    }
-    onVertexMarkerShiftClick = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexMarkerShiftClick, (e) => {
-            this.props.onVertexMarkerShiftClick(e, map)
-        })
-    }
-    onVertexMarkerMetaKeyClick = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexMarkerMetaKeyClick, (e) => {
-            this.props.onVertexMarkerMetaKeyClick(e, map)
-        })
-    }
-    onVertexMarkerAltClick = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexMarkerAltClick, (e) => {
-            this.props.onVertexMarkerAltClick(e, map)
-        })
-    }
-    onVertexMarkerContextMenu = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexMarkerContextMenu, (e) => {
-            this.props.onVertexMarkerContextMenu(e, map)
-        })
-    }
-    onVertexMarkerMouseDown = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexMarkerMouseDown, (e) => {
-            this.props.onVertexMarkerMouseDown(e, map)
-        })
-    }
-    onVertexMarkerMouseOver = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexMarkerMouseOver, (e) => {
-            this.props.onVertexMarkerMouseOver(e, map)
-        })
-    }
-    onVertexMarkerMouseOut = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onVertexMarkerMouseOut, (e) => {
-            this.props.onVertexMarkerMouseOut(e, map)
-        })
-    }
-    onMiddleMarkerMouseDown = () => {
-        const { map } = this.state;
-        if (!map) return;
-        map.on(eventHandlers.onMiddleMarkerMouseDown, (e) => {
-            this.props.onMiddleMarkerMouseDown(e, map)
-        })
     }
     startPolygon = () => {
         const { map } = this.state;
@@ -397,7 +183,7 @@ export default class ReactLeafletEditable extends Component {
     }
     childrenMap = (children, mapComponent = null) => {
         React.Children.map(children, (child) => {
-            if (child.type && child.type.name === 'Map') {
+            if (child.type && child.type.prototype && child.type.prototype.createLeafletElement) {
                 mapComponent = child;
             }
         })
@@ -416,7 +202,7 @@ export default class ReactLeafletEditable extends Component {
     componentDidMount() {
         const { children } = this.props;
         const mapComponet = this.childrenMap(children)
-        if (!mapComponet) return console.error('Warning: Must contain a react-leaflet Map component or similar Map component type.name===Map');
+        if (!mapComponet) return console.error('Warning: Must contain a react-leaflet Map component or similar Map component');
         if (!mapComponet.ref) return console.error('Warning: react-leaflet Map component must add ref attribute.')
         if (!this._isMapEditable(mapComponet.props)) return console.error('Warning: react-leaflet Map component must add editable={true} attribute')
         this._initMap(mapComponet.ref.current.leafletElement)

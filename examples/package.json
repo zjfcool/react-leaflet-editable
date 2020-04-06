@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server --config webpack.dev.js",
+    "build":"webpack --config webpack.prod.js"
   },
   "keywords": [],
   "author": "zjfcool",
