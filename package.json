@@ -1,12 +1,18 @@
 {
   "name": "react-leaflet-editable",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "a lightweight react component",
   "main": "dist/bundle.js",
   "scripts": {
     "build": "webpack"
   },
-  "keywords": [],
+  "files": ["dist"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zjfcool/react-leaflet-editable.git"
+  },
+  "homepage": "https://github.com/zjfcool/react-leaflet-editable",
+  "keywords": ["react","react-leaflet","leaflet-editable","react-leaflet-editable","leaflet"],
   "author": "zjfcool",
   "license": "ISC",
   "dependencies": {
