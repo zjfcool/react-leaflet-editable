@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Leaflet.Editable';
 import PropTypes from 'prop-types'
 
 const eventHandlers = {
@@ -357,36 +356,43 @@ export default class ReactLeafletEditable extends Component {
     startPolygon = () => {
         const { map } = this.state;
         if (!map) return;
+        if(!map.editTools) return console.error('Warning please npm install leaflet-editable and import ')
         return map.editTools.startPolygon()
     }
     startPolyline = () => {
         const { map } = this.state;
         if (!map) return;
+        if(!map.editTools) return console.error('Warning please npm install leaflet-editable and import ')
         return map.editTools.startPolyline()
     }
     startMarker = () => {
         const { map } = this.state;
         if (!map) return;
+        if(!map.editTools) return console.error('Warning please npm install leaflet-editable and import ')
         return map.editTools.startMarker()
     }
     startRectangle = () => {
         const { map } = this.state;
         if (!map) return;
+        if(!map.editTools) return console.error('Warning please npm install leaflet-editable and import ')
         return map.editTools.startRectangle()
     }
     startCircle = () => {
         const { map } = this.state;
         if (!map) return;
+        if(!map.editTools) return console.error('Warning please npm install leaflet-editable and import ')
         return map.editTools.startCircle()
     }
     startHole = () => {
         const { map } = this.state;
         if (!map) return;
+        if(!map.editTools) return console.error('Warning please npm install leaflet-editable and import ')
         return map.editTools.startHole()
     }
     clearAll = () => {
         const { map } = this.state;
         if (!map) return;
+        if(!map.editTools) return console.error('Warning please npm install leaflet-editable and import ')
         map.editTools.featuresLayer.clearLayers()
     }
     childrenMap = (children, mapComponent = null) => {
@@ -409,13 +415,10 @@ export default class ReactLeafletEditable extends Component {
     }
     componentDidMount() {
         const { children } = this.props;
-        console.log(children)
         const mapComponet = this.childrenMap(children)
-        console.log(mapComponet)
         if (!mapComponet) return console.error('Warning: Must contain a react-leaflet Map component or similar Map component type.name===Map');
         if (!mapComponet.ref) return console.error('Warning: react-leaflet Map component must add ref attribute.')
         if (!this._isMapEditable(mapComponet.props)) return console.error('Warning: react-leaflet Map component must add editable={true} attribute')
-        console.log('dsd')
         this._initMap(mapComponet.ref.current.leafletElement)
     }
     componentWillUnmount() {

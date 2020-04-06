@@ -1,16 +1,17 @@
 {
-  "name": "react-leaflet-editable",
+  "name": "react-leaflet-editable-example",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/bundle.js",
+  "main": "src/app.js",
   "scripts": {
-    "build": "webpack"
+    "dev": "webpack-dev-server"
   },
   "keywords": [],
   "author": "zjfcool",
   "license": "ISC",
   "dependencies": {
     "leaflet": "^1.6.0",
+    "leaflet-editable": "^1.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
