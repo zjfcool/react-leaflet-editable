@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 function resolve(url){
     return path.resolve(__dirname,url)
 }
@@ -28,11 +29,20 @@ module.exports={
             },
             {
                 test:/\.css$/,
-                use:["style-loader","css-loader"],
+                use:[
+                    {
+                        loader:MiniCssExtractPlugin.loader
+                    },
+                    "css-loader"
+                ],
                 // exclude:/node_modules/
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
+                use:['url-loader']
+            },
+            {
+                test:/\.(eot|ttf|woff|woff2)$/,
                 use:['url-loader']
             }
         ]
@@ -44,6 +54,15 @@ module.exports={
         new HtmlWebpackPlugin({
             template:resolve('./public/index.html')
         }),
-        new CleanWebpackPlugin()
-    ]
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+            chunkFilename: '[id].css',
+        })
+    ],
+    optimization:{
+        splitChunks:{
+            chunks:'all'
+        }
+    }
 }

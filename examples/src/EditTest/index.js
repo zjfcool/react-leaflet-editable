@@ -59,8 +59,8 @@ export default class EditTest extends Component {
         console.log(this.polyline)
         map.fitBounds(this.polyline.getBounds())
         this.polyline.enableEdit();
-        this.polyline.editor.continueForward();
-        this.polyline.editor.continueBackward()
+        // this.polyline.editor.continueForward();
+        // this.polyline.editor.continueBackward()
     }
     render() {
         return (
@@ -114,43 +114,47 @@ export default class EditTest extends Component {
                                 <button
                                     onClick={this.prev}
                                     className="editable-btn"
-                                >prev</button>
+                                ><i className="iconfont iconhoutui"></i></button>
                                 <button
                                     onClick={this.next}
                                     className="editable-btn"
-                                >next</button>
+                                >
+                                    <i className="iconfont iconqianjin"></i>
+                                </button>
                                 <button
                                     onClick={this.clearAll}
                                     className="editable-btn"
-                                >clearAll</button>
+                                ><i className="iconfont iconqingchu"></i></button>
                                 <button
                                     onClick={this.editPolygon}
                                     className="editable-btn"
-                                >polygon</button>
-                                <button
+                                ><i className="iconfont iconduobianxing"></i></button>
+                                {/* <button
                                     onClick={this.refresh}
                                     className="editable-btn"
-                                >refresh</button>
+                                ><i className="iconfont iconqianjin"></i></button> */}
                                 <button
                                     onClick={this.editPolyline}
                                     className="editable-btn"
-                                >polyline</button>
+                                ><i className="iconfont iconpoly-line"></i></button>
                                 <button
                                     onClick={this.editMarker}
                                     className="editable-btn"
-                                >marker</button>
+                                >
+                                    <i className="iconfont iconcc-marker"></i>
+                                </button>
                                 <button
                                     onClick={this.editRectangle}
                                     className="editable-btn"
-                                >rectangle</button>
+                                ><i className="iconfont iconjuxing"></i></button>
                                 <button
                                     onClick={this.editCircle}
                                     className="editable-btn"
-                                >circle</button>
+                                ><i className="iconfont iconcircle"></i></button>
                                 <button
                                     onClick={this.editHole}
                                     className="editable-btn"
-                                >hole</button>
+                                ><i className="iconfont iconkong"></i></button>
                             </div>
                             <TileLayer url="https://t0.tianditu.gov.cn/DataServer?T=img_w&X={x}&Y={y}&L={z}&tk=b6afc1ba1ece9d7346c30ba57f8c7298" />
                         </Map>

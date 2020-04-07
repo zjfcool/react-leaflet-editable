@@ -6,13 +6,21 @@
   "scripts": {
     "build": "webpack"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zjfcool/react-leaflet-editable.git"
   },
   "homepage": "https://github.com/zjfcool/react-leaflet-editable",
-  "keywords": ["react","react-leaflet","leaflet-editable","react-leaflet-editable","leaflet"],
+  "keywords": [
+    "react",
+    "react-leaflet",
+    "leaflet-editable",
+    "react-leaflet-editable",
+    "leaflet"
+  ],
   "author": "zjfcool",
   "license": "ISC",
   "dependencies": {
