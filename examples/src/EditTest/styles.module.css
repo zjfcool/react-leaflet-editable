@@ -15,3 +15,9 @@
 .editable-btn:hover{
     cursor: pointer;
 }
+.tooltip-wrapper{
+    background-color: rgba(0,0,0,0.45);
+    border-radius: 4px;
+    padding: 4px 6px;
+    color: #ffffff;
+}

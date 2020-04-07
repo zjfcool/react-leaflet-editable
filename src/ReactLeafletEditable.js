@@ -136,9 +136,6 @@ export default class ReactLeafletEditable extends Component {
             map.off(eventHandlers[key])
         })
     }
-    _offListeners = () => {
-
-    }
     startPolygon = () => {
         const { map } = this.state;
         if (!map) return;
@@ -169,11 +166,11 @@ export default class ReactLeafletEditable extends Component {
         if(!map.editTools) return console.error('Warning please npm install leaflet-editable and import ')
         return map.editTools.startCircle()
     }
-    startHole = () => {
+    startHole = (editor,latlng) => {
         const { map } = this.state;
         if (!map) return;
         if(!map.editTools) return console.error('Warning please npm install leaflet-editable and import ')
-        return map.editTools.startHole()
+        return map.editTools.startHole(editor,latlng)
     }
     clearAll = () => {
         const { map } = this.state;
