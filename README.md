@@ -1,5 +1,5 @@
 # react-leaflet-editable
-This is a lightweight react component build on top of react-leaflet that integrate [leaflet-editable](https://github.com/Leaflet/Leaflet.Editable/)feature. It only provides map editing API, and you can easily organize your own UI.
+This is a lightweight react component build on top of [react-leaflet](https://github.com/PaulLeCam/react-leaflet) that integrate [leaflet-editable](https://github.com/Leaflet/Leaflet.Editable/)feature. It only provides map editing API, and you can easily organize your own UI.
 # Example
 See the [DEMO](https://zjfcool.github.io/react-leaflet-editable/examples/dist)
 # How to use
@@ -99,6 +99,7 @@ Methods
 | name       | type      | description     | params|
 | ---------- | :-----------: | :-----------: | :-----------: |
 | startPolygon | function | start edit a polygon layer ||
+| startPolyline | function | start edit a polyline layer ||
 | startMarker | function | start edit a marker layer ||
 | startRectangle | function | start edit a rect layer ||
 | startCircle | function | start edit a circle layer ||
