@@ -36,75 +36,29 @@ const eventHandlers = {
     onVertexMarkerMouseDown: 'editable:vertex:mousedown',
     onVertexMarkerMouseOver: 'editable:vertex:mouseover',
     onVertexMarkerMouseOut: 'editable:vertex:mouseout',
-    onMiddleMarkerMouseDown: 'editable:middlemarker:mousedown'
+    onMiddleMarkerMouseDown: 'editable:middlemarker:mousedown',
+    // ShapeEvent
+    onShapeNew: 'editable:shape:new',
+    onShapeDelete:'editable:shape:delete',//删除shape时
+    onShapeDeleted: 'editable:shape:deleted',//shape 删除成功时
+}
+function registerDefaultProps(){
+    const ret = {};
+    Object.keys(eventHandlers).forEach(key=>{
+        ret[key]=(e,map)=>{}
+    })
+    return ret
+}
+function registerPropTypes(){
+    const ret = {}
+    Object.keys(eventHandlers).forEach(key=>{
+        ret[key] = PropTypes.func
+    })
+    return ret;
 }
 export default class ReactLeafletEditable extends Component {
-    static defaultProps = {
-        onEditing: (e, map) => { },
-        onEnable: (e, map) => { },
-        onDisable: (e, map) => { },
-        onStartDrawing: (e, map) => { },
-        onDrawingClick: (e, map) => { },
-        onDrawingCommit: (e, map) => { },
-        onDrawingMouseDown: (e, map) => { },
-        onDrawingMouseUp: (e, map) => { },
-        onDrawingMove: (e, map) => { },
-        onCancelDrawing: (e, map) => { },
-        onEndDrawing: (e, map) => { },
-        onDragStart: (e, map) => { },
-        onDrag: (e, map) => { },
-        onDragEnd: (e, map) => { },
-        onVertexMarkerDrag: (e, map) => { },
-        onVertexMarkerDragStart: (e, map) => { },
-        onVertexMarkerDragEnd: (e, map) => { },
-        onVertextCtrlClick: (e, map) => { },
-        onNewVertex: (e, map) => { },
-        onVertexMarkerClick: (e, map) => { },
-        onVertexRawMarkerClick: (e, map) => { },
-        onVertexDeleted: (e, map) => { },
-        onVertexMarkerCtrlClick: (e, map) => { },
-        onVertexMarkerShiftClick: (e, map) => { },
-        onVertexMarkerMetaKeyClick: (e, map) => { },
-        onVertexMarkerAltClick: (e, map) => { },
-        onVertexMarkerContextMenu: (e, map) => { },
-        onVertexMarkerMouseDown: (e, map) => { },
-        onVertexMarkerMouseOver: (e, map) => { },
-        onVertexMarkerMouseOut: (e, map) => { },
-        onMiddleMarkerMouseDown: (e, map) => { },
-    }
-    static propTypes = {
-        onEditing: PropTypes.func,
-        onEnable: PropTypes.func,
-        onDisable: PropTypes.func,
-        onStartDrawing: PropTypes.func,
-        onDrawingClick: PropTypes.func,
-        onDrawingCommit: PropTypes.func,
-        onDrawingMouseDown: PropTypes.func,
-        onDrawingMouseUp: PropTypes.func,
-        onDrawingMove: PropTypes.func,
-        onCancelDrawing: PropTypes.func,
-        onEndDrawing: PropTypes.func,
-        onDragStart: PropTypes.func,
-        onDrag: PropTypes.func,
-        onDragEnd: PropTypes.func,
-        onVertexMarkerDrag: PropTypes.func,
-        onVertexMarkerDragStart: PropTypes.func,
-        onVertexMarkerDragEnd: PropTypes.func,
-        onVertextCtrlClick: PropTypes.func,
-        onNewVertex: PropTypes.func,
-        onVertexMarkerClick: PropTypes.func,
-        onVertexRawMarkerClick: PropTypes.func,
-        onVertexDeleted: PropTypes.func,
-        onVertexMarkerCtrlClick: PropTypes.func,
-        onVertexMarkerShiftClick: PropTypes.func,
-        onVertexMarkerMetaKeyClick: PropTypes.func,
-        onVertexMarkerAltClick: PropTypes.func,
-        onVertexMarkerContextMenu: PropTypes.func,
-        onVertexMarkerMouseDown: PropTypes.func,
-        onVertexMarkerMouseOver: PropTypes.func,
-        onVertexMarkerMouseOut: PropTypes.func,
-        onMiddleMarkerMouseDown: PropTypes.func,
-    }
+    static defaultProps = registerDefaultProps();
+    static propTypes = registerPropTypes();
     constructor() {
         super()
         this.state = {

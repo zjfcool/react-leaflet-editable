@@ -20,9 +20,14 @@ Icon.Default.mergeOptions({
 export default class EditTest extends Component {
     constructor() {
         super()
+        this.state={
+            isContinueDisabled:true
+        }
         this.editRef = createRef();
         this.mapRef = createRef();
         this.redoArr = [];
+        this.editors = [];
+        this.layers = [];
     }
     
     editPolygon = () => {
@@ -45,16 +50,40 @@ export default class EditTest extends Component {
     }
     clearAll = () => {
         this.editRef.current.clearAll()
-    }
-    prev = () => {
-        this.polyline.editor.continueBackward()
-    }
-    next = () => {
-        this.polyline.editor.continueForward();
+        this.editors=[]
     }
     onEndDrawing = (e,map)=>{
         this.redoArr = [];
         this.removeTooltip(e)
+        this.editors.push(e.layer.editor)
+        this.layers.push(e.layer);
+        this.setState({
+            isContinueDisabled:!(this.editors.some(editor=>{
+                return editor.continueBackward
+            }))
+        })
+        this.layerListeners()
+    }
+    layerListeners = ()=>{
+        this.layers.forEach(layer=>{
+            layer.on('mouseover',(e)=>{
+                layer.bindTooltip("Ctrl+click delete layer").openTooltip();
+            })
+            layer.on('click',L.DomEvent.stop).on('click',function(e){
+                console.log(this.editor.deleteShapeAt,this.editEnabled(),e)
+                if ((e.originalEvent.ctrlKey || e.originalEvent.metaKey) && this.editEnabled() && this.editor.deleteShapeAt) this.editor.deleteShapeAt(e.latlng);
+            },layer)
+        })
+    }
+    continueBackward = ()=>{
+        this.editors.forEach(editor=>{
+            editor.continueBackward&&editor.continueBackward()
+        })
+    }
+    continueForward = ()=>{
+        this.editors.forEach(editor=>{
+            editor.continueForward&&editor.continueForward();
+        })
     }
     onStartDrawing = (e,map)=>{
         const container = document.querySelector('.leaflet-container');
@@ -82,7 +111,6 @@ export default class EditTest extends Component {
         this.tooltip.style.top = e.clientY - 10 + 'px';
     }
     updateTooltip = (e) => {
-        console.log(e)
         if(!e.layer.editor._drawnLatLngs) return
         if (e.layer.editor._drawnLatLngs.length < e.layer.editor.MIN_VERTEX) {
             this.tooltip.innerHTML = `Ctrl+Z 回退 , Shift+Z 前进.${e.latlng.lat},${e.latlng.lng}`;
@@ -118,10 +146,15 @@ export default class EditTest extends Component {
         this.redoListener()
     }
     render() {
+        const {
+            isContinueDisabled
+        } = this.state;
         return (
             <div style={{ height: "100%" }}>
                 <ReactLeafletEditable
                     ref={this.editRef}
+                    // onShapeDelete={(e,map)=>{console.log('shape delete')}}
+                    // onShapeDeleted={(e,map)=>{console.log('shape deleted')}}
                     // onEditing={(e, map) => { console.log('onEditing') }}
                     // onEnable={(e, map) => { console.log('onEnable') }}
                     // onDisable={(e, map) => { console.log('onDisable') }}
@@ -166,16 +199,20 @@ export default class EditTest extends Component {
                             center={[35, 105]}
                         >
                             <div className="btn-group">
-                                {/* <button
-                                    onClick={this.prev}
+                                <button
+                                    disabled={isContinueDisabled}
+                                    title="从开始位置继续编辑"
+                                    onClick={this.continueBackward}
                                     className="editable-btn"
                                 ><i className="iconfont iconhoutui"></i></button>
                                 <button
-                                    onClick={this.next}
+                                    disabled={isContinueDisabled}
+                                    title="从结束位置继续编辑"
+                                    onClick={this.continueForward}
                                     className="editable-btn"
                                 >
                                     <i className="iconfont iconqianjin"></i>
-                                </button> */}
+                                </button>
                                 <button
                                     title="清除所有编辑图层"
                                     onClick={this.clearAll}

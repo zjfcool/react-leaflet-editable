@@ -12,6 +12,9 @@
     border-radius: 8px;
     margin-right: 4px;
 }
+.editable-btn:disabled:hover{
+    cursor: not-allowed;
+}
 .editable-btn:hover{
     cursor: pointer;
 }

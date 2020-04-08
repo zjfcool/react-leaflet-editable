@@ -56,48 +56,51 @@ class Demo extends Component {
 Props
 -
 
-| name       | type      | description     |
-| ---------- | :-----------: | :-----------: |
-|onEditing | function |hook to leaflet-editable ```editable:editing``` |
-|onEnable | function |hook to leaflet-editable ```editable:enable``` |
-|onDisable | function |hook to leaflet-editable ```editable:disable``` |
-|onStartDrawing | function |hook to leaflet-editable ```editable:drawing:start``` |
-|onDrawingClick | function |hook to leaflet-editable ```editable:drawing:click``` |
-|onDrawingCommit | function |hook to leaflet-editable ```editable:drawing:commit``` |
-|onDrawingMouseDown | function |hook to leaflet-editable ```editable:drawing:mousedown``` |
-|onDrawingMouseUp | function |hook to leaflet-editable ```editable:drawing:mouseup``` |
-|onDrawingMove | function |hook to leaflet-editable ```editable:drawing:move``` |
-|onCancelDrawing | function |hook to leaflet-editable ```editable:drawing:cancel``` |
-|onEndDrawing | function |hook to leaflet-editable ```editable:drawing:end``` |
-|onDragStart | function |hook to leaflet-editable ```editable:dragstart``` |
-|onDrag | function |hook to leaflet-editable ```editable:drag``` |
-|onDragEnd | function |hook to leaflet-editable ```editable:dragend``` |
-|onVertexMarkerDrag | function |hook to leaflet-editable ```editable:vertex:drag``` |
-|onVertexMarkerDragStart | function |hook to leaflet-editable ```editable:vertex:dragstart``` |
-|onVertexMarkerDragEnd | function |hook to leaflet-editable ```editable:vertex:dragend``` |
-|onVertextCtrlClick | function |hook to leaflet-editable ```editable:vertex:ctrlclick``` |
-|onNewVertex | function |hook to leaflet-editable ```editable:vertex:new``` |
-|onVertexMarkerClick | function |hook to leaflet-editable ```editable:vertex:click``` |
-|onVertexRawMarkerClick | function |hook to leaflet-editable ```editable:vertex:rawclick``` |
-|onVertexDeleted | function |hook to leaflet-editable ```editable:vertex:deleted``` |
-|onVertexMarkerCtrlClick | function |hook to leaflet-editable ```editable:vertex:ctrlclick``` |
-|onVertexMarkerShiftClick | function |hook to leaflet-editable ```editable:vertex:shiftclick``` |
-onVertexMarkerMetaKeyClick | function |hook to leaflet-editable ```editable:vertex:metakeyclick``` |
-|onVertexMarkerAltClick | function |hook to leaflet-editable ```editable:vertex:altclick``` |
-|onVertexMarkerContextMenu | function |hook to leaflet-editable ```editable:vertex:contextmenu``` |
-|onVertexMarkerMouseDown | function |hook to leaflet-editable ```editable:vertex:mousedown``` |
-|onVertexMarkerMouseOver | function |hook to leaflet-editable ```editable:vertex:mouseover``` |
-|onVertexMarkerMouseOut | function |hook to leaflet-editable ```editable:vertex:mouseout``` |
-|onMiddleMarkerMouseDown | function |hook to leaflet-editable ```editable:middlemarker:mousedown```|
+| name       | type      | description     | params |
+| ---------- | :-----------: | :-----------: | :-----------: |
+|onEditing | function |hook to leaflet-editable ```editable:editing``` |(e,map)|
+|onEnable | function |hook to leaflet-editable ```editable:enable``` |(e,map)|
+|onDisable | function |hook to leaflet-editable ```editable:disable``` |(e,map)|
+|onStartDrawing | function |hook to leaflet-editable ```editable:drawing:start``` |(e,map)|
+|onDrawingClick | function |hook to leaflet-editable ```editable:drawing:click``` |(e,map)|
+|onDrawingCommit | function |hook to leaflet-editable ```editable:drawing:commit``` |(e,map)|
+|onDrawingMouseDown | function |hook to leaflet-editable ```editable:drawing:mousedown``` |(e,map)|
+|onDrawingMouseUp | function |hook to leaflet-editable ```editable:drawing:mouseup``` |(e,map)|
+|onDrawingMove | function |hook to leaflet-editable ```editable:drawing:move``` |(e,map)|
+|onCancelDrawing | function |hook to leaflet-editable ```editable:drawing:cancel``` |(e,map)|
+|onEndDrawing | function |hook to leaflet-editable ```editable:drawing:end``` |(e,map)|
+|onDragStart | function |hook to leaflet-editable ```editable:dragstart``` |(e,map)|
+|onDrag | function |hook to leaflet-editable ```editable:drag``` |(e,map)|
+|onDragEnd | function |hook to leaflet-editable ```editable:dragend``` |(e,map)|
+|onVertexMarkerDrag | function |hook to leaflet-editable ```editable:vertex:drag``` |(e,map)|
+|onVertexMarkerDragStart | function |hook to leaflet-editable ```editable:vertex:dragstart``` |(e,map)|
+|onVertexMarkerDragEnd | function |hook to leaflet-editable ```editable:vertex:dragend``` |(e,map)|
+|onVertextCtrlClick | function |hook to leaflet-editable ```editable:vertex:ctrlclick``` |(e,map)|
+|onNewVertex | function |hook to leaflet-editable ```editable:vertex:new``` |(e,map)|
+|onVertexMarkerClick | function |hook to leaflet-editable ```editable:vertex:click``` |(e,map)|
+|onVertexRawMarkerClick | function |hook to leaflet-editable ```editable:vertex:rawclick``` |(e,map)|
+|onVertexDeleted | function |hook to leaflet-editable ```editable:vertex:deleted``` |(e,map)|
+|onVertexMarkerCtrlClick | function |hook to leaflet-editable ```editable:vertex:ctrlclick``` |(e,map)|
+|onVertexMarkerShiftClick | function |hook to leaflet-editable ```editable:vertex:shiftclick``` |(e,map)|
+onVertexMarkerMetaKeyClick | function |hook to leaflet-editable ```editable:vertex:metakeyclick``` |(e,map)|
+|onVertexMarkerAltClick | function |hook to leaflet-editable ```editable:vertex:altclick``` |(e,map)|
+|onVertexMarkerContextMenu | function |hook to leaflet-editable ```editable:vertex:contextmenu``` |(e,map)|
+|onVertexMarkerMouseDown | function |hook to leaflet-editable ```editable:vertex:mousedown``` |(e,map)|
+|onVertexMarkerMouseOver | function |hook to leaflet-editable ```editable:vertex:mouseover``` |(e,map)|
+|onVertexMarkerMouseOut | function |hook to leaflet-editable ```editable:vertex:mouseout``` |(e,map)|
+|onMiddleMarkerMouseDown | function |hook to leaflet-editable ```editable:middlemarker:mousedown```|(e,map)|
+|onShapeNew | function |hook to leaflet-editable ```editable:shape:new```|(e,map)|
+|onShapeDelete | function |hook to leaflet-editable ```editable:shape:delete```|(e,map)|
+|onShapeDeleted | function |hook to leaflet-editable ```editable:shape:deleted```|(e,map)|
 
 Methods
 -
 
-| name       | type      | description     |
-| ---------- | :-----------: | :-----------: |
-| startPolygon | function | start edit a polygon layer |
-| startMarker | function | start edit a marker layer |
-| startRectangle | function | start edit a rect layer |
-| startCircle | function | start edit a circle layer |
-| startHole | function | start edit a hole layer |
-| clearAll | function | clear all editing layers |
+| name       | type      | description     | params|
+| ---------- | :-----------: | :-----------: | :-----------: |
+| startPolygon | function | start edit a polygon layer ||
+| startMarker | function | start edit a marker layer ||
+| startRectangle | function | start edit a rect layer ||
+| startCircle | function | start edit a circle layer ||
+| startHole | function | start edit a hole layer |(editor,latlng)|
+| clearAll | function | clear all editing layers ||
