@@ -4,6 +4,8 @@
 这是一个轻量的react组件，基于 [react-leaflet](https://github.com/PaulLeCam/react-leaflet) 和 [leaflet-editable](https://github.com/Leaflet/Leaflet.Editable/). 它仅仅提供了一些地图编辑的api，你可以随意的更改你的UI.
 # Example
 瞧一瞧 [DEMO](https://zjfcool.github.io/react-leaflet-editable/examples/dist)
+
+![GIF](https://github.com/zjfcool/react-leaflet-editable/blob/master/public/map.gif)
 # How to use
 ## Install
 ```javascript
