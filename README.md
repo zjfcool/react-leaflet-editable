@@ -4,6 +4,8 @@
 This is a lightweight react component build on top of [react-leaflet](https://github.com/PaulLeCam/react-leaflet) that integrate [leaflet-editable](https://github.com/Leaflet/Leaflet.Editable/)feature. It only provides map editing API, and you can easily organize your own UI.
 # Example
 See the [DEMO](https://zjfcool.github.io/react-leaflet-editable/examples/dist)
+
+![GIF](https://github.com/zjfcool/react-leaflet-editable/blob/master/public/map.gif)
 # How to use
 ## Install
 ```javascript
