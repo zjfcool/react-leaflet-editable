@@ -1,9 +1,8 @@
 # react-leaflet-editable
 
 [![](https://img.shields.io/npm/v/react-leaflet-editable.svg)](https://www.npmjs.com/package/react-leaflet-editable)
-[to v0.1.1 base react-leaflet^2.x.x](https://github.com/zjfcool/react-leaflet-editable/blob/master/README.v0.1.1.md)
 
-This is a lightweight react component build on top of [react-leaflet^3.x.x](https://github.com/PaulLeCam/react-leaflet) that integrate [leaflet-editable](https://github.com/Leaflet/Leaflet.Editable/)feature. It only provides map editing API, and you can easily organize your own UI.
+This is a lightweight react component build on top of [react-leaflet^2.x.x](https://github.com/PaulLeCam/react-leaflet) that integrate [leaflet-editable](https://github.com/Leaflet/Leaflet.Editable/)feature. It only provides map editing API, and you can easily organize your own UI.
 
 # Example
 
@@ -16,7 +15,7 @@ See the [DEMO](https://zjfcool.github.io/react-leaflet-editable/examples/dist)
 ## Install
 
 ```javascript
-npm install react-leaflet-editable -S
+npm install react-leaflet-editable@0.1.1 -S
 ```
 
 ## Introducing dependency and import component
@@ -24,45 +23,44 @@ npm install react-leaflet-editable -S
 `Note: `
 
 - Install `react-leaflet` and `leaflet-eidtable` before import `react-leaflet-editable`
-- MapContainer component must have `editable = true` attribute
-- ReactLeafletEditable component must have `map` attribute
+- Map component must have `ref` and `editable = true` attribute
 
 ```javascript
-import React, { Component, createRef } from 'react'
-import L, { Icon } from 'leaflet'
-import 'leaflet-editable'
-import ReactLeafletEditable from 'react-leaflet-editable';
-import { MapContainer, TileLayer } from 'react-leaflet'
-import 'leaflet/dist/leaflet.css'
+import React, { Component, createRef } from "react";
+import L, { Icon } from "leaflet";
+import "leaflet-editable";
+import ReactLeafletEditable from "react-leaflet-editable";
+import { Map, TileLayer } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
-function Demo (){
-    const editRef = useRef();
-    const [map, setMap] = useState();
-    // 编辑一个多边形
-    const editPolygon = () => {
-        editRef.current.startPolygon()
-    }
-    render(){
-        return(
-             <ReactLeafletEditable
-                ref={editRef}
-                map={map}
-             >
-                <MapContainer
-                    editable={true}
-                    zoom={4}
-                    maxZoom={18}
-                    center={[35, 105]}
-                    whenCreated={setMap}>
-                    <button
-                        onClick={editPolygon}
-                        className="editable-btn"
-                    >polygon</button>
-                    <TileLayer url="xxx" />
-                </MapContainer>
-            </ReactLeafletEditable>
-        )
-    }
+class Demo extends Component {
+  constructor() {
+    super();
+    this.editRef = createRef();
+    this.mapRef = createRef();
+  }
+  // 编辑一个多边形
+  editPolygon = () => {
+    this.editRef.current.startPolygon();
+  };
+  render() {
+    return (
+      <ReactLeafletEditable ref={this.mapRef}>
+        <Map
+          ref={this.mapRef}
+          editable={true}
+          zoom={4}
+          maxZoom={18}
+          center={[35, 105]}
+        >
+          <button onClick={this.editPolygon} className="editable-btn">
+            polygon
+          </button>
+          <TileLayer url="xxx" />
+        </Map>
+      </ReactLeafletEditable>
+    );
+  }
 }
 ```
 
