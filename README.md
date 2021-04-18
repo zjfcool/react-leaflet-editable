@@ -28,7 +28,7 @@ npm install react-leaflet-editable -S
 - ReactLeafletEditable component must have `map` attribute
 
 ```javascript
-import React, { Component, createRef } from 'react'
+import React, { useRef } from 'react'
 import L, { Icon } from 'leaflet'
 import 'leaflet-editable'
 import ReactLeafletEditable from 'react-leaflet-editable';
