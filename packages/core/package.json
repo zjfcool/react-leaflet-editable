@@ -1,0 +1,39 @@
+{
+  "name": "react-leaflet-editable",
+  "version": "1.0.0",
+  "description": "a lightweight react component",
+  "keywords": [
+    "leaflet",
+    "leaflet-editable",
+    "react",
+    "react-leaflet",
+    "react-leaflet-editable"
+  ],
+  "homepage": "https://github.com/zjfcool/react-leaflet-editable",
+  "license": "MIT",
+  "author": "zjfcool",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zjfcool/react-leaflet-editable.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.1"
+  }
+}

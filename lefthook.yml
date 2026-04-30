@@ -1,0 +1,12 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: prettier
+      run: pnpm lint:fmt {staged_files}
+      glob: "*.{js,ts,jsx,tsx}"
+    - name: cspell
+      glob: "packages/**/*.{js,ts,css,md}"
+      run: pnpm lint:cspell {staged_files}
+    - name: lint
+      glob: "packages/**/*.{ts,tsx}"
+      run: pnpm lint {staged_files}

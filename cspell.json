@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en",
+  "import": ["@cspell/dict-lorem-ipsum/cspell-ext.json"],
+  "words": ["cspell", "eslint", "webpack", "babel"],
+  "files": ["packages/**/*"],
+  "ignorePaths": ["node_modules", "dist", "package.json", "lefthook.yml", ".lefthook"],
+  "ignoreRegExpList": ["https?://[^\\s]+", "Email:\\s*\\S+@\\S+\\.\\S+"],
+  "dictionaries": ["custom-words"],
+  "dictionaryDefinitions": [
+    {
+      "name": "custom-words",
+      "path": "./.cspell/custom-words.txt",
+      "addWords": true
+    }
+  ]
+}

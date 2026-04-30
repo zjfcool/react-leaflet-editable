@@ -1,0 +1,7 @@
+altclick
+ctrlclick
+metakeyclick
+middlemarker
+oxlint
+rawclick
+shiftclick
