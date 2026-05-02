@@ -1,0 +1,40 @@
+@import "../assets/css/iconfont.css";
+.btn-group {
+  z-index: 9999;
+  position: absolute;
+  right: 20px;
+  top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.editable-btn {
+  border: none;
+  background-color: #ffffff;
+  padding: 8px;
+  border-radius: 8px;
+  margin-right: 4px;
+  text-align: center;
+  line-height: 16px;
+}
+.editable-btn:disabled:hover {
+  cursor: not-allowed;
+}
+.editable-btn:hover {
+  cursor: pointer;
+}
+.editable-btn i {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+.editable-btn .circle-marker {
+  background: url("./map-pin-3-line.svg") no-repeat center;
+  background-size: 16px 16px;
+}
+.tooltip-wrapper {
+  background-color: rgba(0, 0, 0, 0.45);
+  border-radius: 4px;
+  padding: 4px 6px;
+  color: #ffffff;
+}

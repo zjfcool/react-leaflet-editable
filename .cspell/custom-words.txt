@@ -1,5 +1,9 @@
 altclick
 ctrlclick
+Evented
+klass
+latlng
+latlngs
 metakeyclick
 middlemarker
 oxlint

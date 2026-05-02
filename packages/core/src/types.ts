@@ -12,6 +12,8 @@ import type {
   Polyline,
   LeafletMouseEvent,
   CircleMarker,
+  Evented,
+  Layer,
 } from "leaflet";
 
 const eventNamesMap = {
@@ -65,41 +67,85 @@ const eventNames = Object.keys(eventNamesMap) as EventNames[];
 type LeafletEditableProps = {
   [key in EventNames]?: (...args: any[]) => void;
 };
-
-type Editable = {
-  drawing(): boolean;
-
-  stopDrawing(): void;
-
-  commitDrawing(event: LeafletMouseEvent): void;
-
-  startPolyline(latLng?: LatLng, options?: PolylineOptions): Polyline;
-
-  startPolygon(latLng?: LatLng, options?: PolylineOptions): Polygon;
-
-  startMarker(latLng?: LatLng, options?: MarkerOptions): Marker;
-
-  startRectangle(latLng?: LatLng, options?: PolylineOptions): Rectangle;
-
-  startCircle(latLng?: LatLng, options?: CircleMarkerOptions): Circle;
-  startCircleMarker(latLng?: LatLng, options?: CircleMarkerOptions): CircleMarker;
+type HookHoleEditor = {
+  newHole(latlng?: LatLng): void;
+  [key: string]: any;
 };
-type EditableTools = Editable & {
+//  L.Editable Interface
+interface Editable extends Evented {
   featuresLayer: LayerGroup;
   editLayer: LayerGroup;
   forwardLineGuide: Polyline;
   backwardLineGuide: Polyline;
+  map: EditableMap;
+  drawing(): boolean;
+  anchorBackwardLineGuide(latlng: LatLng): void;
+  anchorForwardLineGuide(latlng: LatLng): void;
+  attachBackwardLineGuide(): void;
+  attachForwardLineGuide(): void;
+  blockEvents(): void;
+  // callInHooks(): void;
+  commitDrawing(event: LeafletMouseEvent): void;
+  connectCreatedToMap(layer: Layer): void;
+  createCircle(latlng: LatLng, options?: CircleMarkerOptions): Circle;
+  createCircleMarker(
+    latlng: LatLng,
+    options?: CircleMarkerOptions,
+  ): CircleMarker;
+  createEditLayer(): LayerGroup;
+  createFeaturesLayer(): LayerGroup;
+  createLayer(klass: any, latlngs: any, options?: any): Layer;
+  createLineGuide(): Polyline;
+  createMarker(latlng: LatLng, options?: MarkerOptions): Marker;
+  createPolygon(
+    latlngs: LatLng[] | LatLng[][],
+    options?: PolylineOptions,
+  ): Polygon;
+  createPolyline(
+    latlngs: LatLng[] | LatLng[][],
+    options?: PolylineOptions,
+  ): Polyline;
+  createRectangle(bounds: any, options?: PolylineOptions): Rectangle;
+  createVertexIcon(options: any): HTMLElement;
+  detachBackwardLineGuide(): void;
+  detachForwardLineGuide(): void;
+  fireAndForward(type: string, e: any): void;
+  initialize(map: LeafletMap, options?: any): void;
+  moveBackwardLineGuide(latlng: LatLng): void;
+  moveForwardLineGuide(latlng: LatLng): void;
+  onMousedown(e: LeafletMouseEvent): void;
+  onMouseup(e: LeafletMouseEvent): void;
+  options: any;
+  registerForDrawing(editor: any): void;
+  unregisterForDrawing(editor: any): void;
+  unblockEvents(): void;
+  stopDrawing(): void;
+  startPolyline(latLng?: LatLng, options?: PolylineOptions): Polyline;
+  startPolygon(latLng?: LatLng, options?: PolylineOptions): Polygon;
+  startMarker(latLng?: LatLng, options?: MarkerOptions): Marker;
+  startRectangle(latLng?: LatLng, options?: PolylineOptions): Rectangle;
+  startCircle(latLng?: LatLng, options?: CircleMarkerOptions): Circle;
+  startCircleMarker(
+    latLng?: LatLng,
+    options?: CircleMarkerOptions,
+  ): CircleMarker;
+  startHole(editor: HookHoleEditor, latlng?: LatLng): void;
   [key: string]: any;
-};
+}
+
 type EditableMap = LeafletMap & {
-  editTools: EditableTools;
+  editTools: Editable;
 };
 
 type LeafletEditableHandleProps = Editable & {
-  map: EditableMap;
-  editTools: EditableTools;
   clearAll(): LayerGroup;
 };
 
-export type { EventNames, EditableMap, LeafletEditableHandleProps, LeafletEditableProps };
+export type {
+  HookHoleEditor,
+  EventNames,
+  EditableMap,
+  LeafletEditableHandleProps,
+  LeafletEditableProps,
+};
 export { eventNamesMap, eventNames };

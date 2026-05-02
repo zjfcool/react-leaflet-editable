@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useEffect, useImperativeHandle } from "react";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react";
 import { useMap } from "react-leaflet";
 import {
   eventNamesMap,
@@ -52,29 +52,44 @@ const LeafletEditable = forwardRef<LeafletEditableHandleProps, LeafletEditablePr
   (props: LeafletEditableProps, ref) => {
     const map = useMap() as EditableMap;
     const editTools = map.editTools;
-    useEventsInitial(map, props);
-
-    useImperativeHandle<any, LeafletEditableHandleProps>(ref, () => {
-      return {
-        map,
-        editTools,
-        drawing: () => editTools.drawing(),
-        stopDrawing: () => editTools.stopDrawing(),
-        commitDrawing: (...args) => {
-          editTools.commitDrawing(...args);
+    const proxyRef = useRef(
+      new Proxy(editTools as LeafletEditableHandleProps, {
+        get: (target, prop, receiver) => {
+          switch (prop) {
+            case "clearAll":
+              return () => target.featuresLayer.clearLayers();
+          }
+          return Reflect.get(target, prop, receiver);
         },
-        startPolygon: (...args) => editTools.startPolygon(...args),
-        startPolyline: (...args) => editTools.startPolyline(...args),
-        startRectangle: (...args) => editTools.startRectangle(...args),
-        startCircle: (...args) => editTools.startCircle(...args),
-        startMarker: (...args) => editTools.startMarker(...args),
-        clearAll: () => editTools.featuresLayer.clearLayers(),
-        startCircleMarker: (...args) => editTools.startCircleMarker(...args),
-        // startHole: (editor, latlng) => {
-        //   // map.editTools.startHole(editor, latlng);
-        // },
-      };
-    });
+        set: (target, prop, value, receiver) => {
+          return Reflect.set(target, prop, value, receiver);
+        },
+      }),
+    );
+    useEventsInitial(map, props);
+    useImperativeHandle(ref, () => proxyRef.current);
+
+    // useImperativeHandle<any, LeafletEditableHandleProps>(ref, () => {
+    //   return {
+    //     map,
+    //     editTools,
+    //     drawing: () => editTools.drawing(),
+    //     stopDrawing: () => editTools.stopDrawing(),
+    //     commitDrawing: (...args) => {
+    //       editTools.commitDrawing(...args);
+    //     },
+    //     startPolygon: (...args) => editTools.startPolygon(...args),
+    //     startPolyline: (...args) => editTools.startPolyline(...args),
+    //     startRectangle: (...args) => editTools.startRectangle(...args),
+    //     startCircle: (...args) => editTools.startCircle(...args),
+    //     startMarker: (...args) => editTools.startMarker(...args),
+    //     clearAll: () => editTools.featuresLayer.clearLayers(),
+    //     startCircleMarker: (...args) => editTools.startCircleMarker(...args),
+    //     // startHole: (editor, latlng) => {
+    //     //   // map.editTools.startHole(editor, latlng);
+    //     // },
+    //   };
+    // });
     return null;
   },
 );

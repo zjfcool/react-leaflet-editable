@@ -4,4 +4,5 @@ export type {
   EditableMap,
   LeafletEditableHandleProps,
   LeafletEditableProps,
+  HookHoleEditor,
 } from "./types";

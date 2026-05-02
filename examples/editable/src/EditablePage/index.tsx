@@ -1,17 +1,24 @@
 import { useCallback, useEffect, useRef } from "react";
 import "leaflet-editable";
-import L, { LatLng } from "leaflet";
+import L, { LatLng, Polygon, Rectangle } from "leaflet";
 import { TileLayer, MapContainer } from "react-leaflet";
-import { LeafletEditable, type LeafletEditableHandleProps } from "react-leaflet-editable";
+import {
+  LeafletEditable,
+  type HookHoleEditor,
+  type LeafletEditableHandleProps,
+} from "react-leaflet-editable";
 import "leaflet/dist/leaflet.css";
 import "./styles.css";
-
+type HookLayer = Polygon & {
+  editor: HookHoleEditor;
+};
 export default function EditTest() {
   const mapRef = useRef<LeafletEditableHandleProps>(null);
   const redoArr = useRef<LatLng[]>([]);
   const tooltipRef = useRef<HTMLSpanElement | null>(null);
 
   const editPolygon = useCallback(() => {
+    console.log(mapRef.current);
     mapRef.current?.startPolygon();
   }, [mapRef]);
   const editPolyline = useCallback(() => {
@@ -19,6 +26,9 @@ export default function EditTest() {
   }, [mapRef]);
   const editCircle = useCallback(() => {
     mapRef.current?.startCircle();
+  }, [mapRef]);
+  const editCircleMarker = useCallback(() => {
+    mapRef.current?.startCircleMarker();
   }, [mapRef]);
   const editMarker = useCallback(() => {
     mapRef.current?.startMarker();
@@ -29,23 +39,33 @@ export default function EditTest() {
   const clearAll = useCallback(() => {
     mapRef.current?.clearAll();
   }, [mapRef]);
+  // const editHole = useCallback(
+  //   (editor) => {
+  //     mapRef.current?.startHole(editor);
+  //   },
+  //   [mapRef],
+  // );
 
   const layerListener = useCallback((layer) => {
+    const isPolygon = layer instanceof Polygon && !(layer instanceof Rectangle);
+    let tooltip: string = "<div>Shift+click delete layer</div>";
+    if (isPolygon) tooltip += "<div>Ctrl+click hole layer</div>";
+
     layer.on("mouseover", function () {
-      layer
-        .bindTooltip(`<div>Ctrl+click toggle edit layer</div> <div>Shift+click delete layer</div>`)
-        .openTooltip();
+      layer.bindTooltip(tooltip).openTooltip();
     });
     layer.on("click", L.DomEvent.stop).on(
       "click",
       function (e) {
         e.originalEvent.preventDefault();
         if (e.originalEvent.ctrlKey || e.originalEvent.metaKey) {
-          layer.toggleEdit();
+          // layer.toggleEdit();
+          // if (isPolygon) (layer).editor.newHole(e.latlng);
+          if (isPolygon) mapRef.current?.startHole((layer as HookLayer).editor, e.latlng);
         } else if (e.originalEvent.shiftKey) {
-          // layer.remove();
+          layer.remove();
           // 该函数会触发onShapeDeleted,onShapeDelete 回调函数
-          layer.editor?.deleteShapeAt?.(e.latlng);
+          // layer.editor?.deleteShapeAt?.(e.latlng);
         }
       },
       layer,
@@ -97,12 +117,13 @@ export default function EditTest() {
     function keydownHandler(e) {
       if (!mapRef.current) return;
       const editTools = mapRef.current.editTools;
-      if (!editTools || !editTools._drawingEditor) return;
+      console.log(editTools, mapRef.current);
+      if (!mapRef.current._drawingEditor) return;
       if (e.key.toLowerCase() === "z") {
         if (e.shiftKey) {
-          if (redoArr.current.length) editTools._drawingEditor.push(redoArr.current.pop());
+          if (redoArr.current.length) mapRef.current._drawingEditor.push(redoArr.current.pop());
         } else if (e.ctrlKey || e.metaKey) {
-          const latlng = editTools._drawingEditor.pop();
+          const latlng = mapRef.current._drawingEditor.pop();
           if (latlng) redoArr.current.push(latlng);
         }
       }
@@ -115,10 +136,12 @@ export default function EditTest() {
   }, []);
   const onDrawingEnd = useCallback(
     (e) => {
-      console.log(mapRef.current.editTools);
+      console.log("onDrawingEnd", mapRef.current, e);
       redoArr.current = [];
       removeTooltip();
       layerListener(e.layer);
+      // editHole(e.layer.editor);
+      console.log(e.layer instanceof Polygon);
     },
     [removeTooltip, layerListener],
   );
@@ -249,6 +272,9 @@ export default function EditTest() {
         </button>
         <button title="编辑点" onClick={editMarker} className="editable-btn">
           <i className="iconfont iconcc-marker"></i>
+        </button>
+        <button title="编辑圆点" onClick={editCircleMarker} className="editable-btn">
+          <i className="circle-marker"></i>
         </button>
         <button title="编辑矩形" onClick={editRectangle} className="editable-btn">
           <i className="iconfont iconjuxing"></i>
