@@ -9,9 +9,12 @@
     "lint": "oxlint",
     "lint:fmt": "oxfmt --write",
     "lint:cspell": "cspell",
-    "prepare": "lefthook install"
+    "prepare": "lefthook install",
+    "changeset": "pnpm changeset",
+    "version": "pnpm changeset version"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.31.0",
     "@cspell/dict-lorem-ipsum": "^4.0.5",
     "@types/leaflet": "^1.9.21",
     "@types/leaflet-editable": "^1.2.7",

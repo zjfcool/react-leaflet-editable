@@ -9,3 +9,4 @@ middlemarker
 oxlint
 rawclick
 shiftclick
+zjfcool

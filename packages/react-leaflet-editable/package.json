@@ -1,7 +1,7 @@
 {
   "name": "react-leaflet-editable",
   "version": "1.0.0",
-  "description": "a lightweight react component",
+  "description": "Leaflet.Editable for React-Leaflet",
   "keywords": [
     "leaflet",
     "leaflet-editable",
