@@ -31,9 +31,14 @@
   },
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch src",
+    "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
     "tsup": "^8.5.1"
+  },
+  "peerDependencies": {
+    "leaflet-editable": "^1.0.0",
+    "react-leaflet": ">=4.0.0"
   }
 }

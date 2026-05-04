@@ -51,14 +51,11 @@ function useEventsInitial(map: EditableMap | null, props: LeafletEditableProps) 
 const LeafletEditable = forwardRef<LeafletEditableHandleProps, LeafletEditableProps>(
   (props: LeafletEditableProps, ref) => {
     const map = useMap() as EditableMap;
+    console.log(map);
     const editTools = map.editTools;
     const proxyRef = useRef(
       new Proxy(editTools as LeafletEditableHandleProps, {
         get: (target, prop, receiver) => {
-          switch (prop) {
-            case "clearAll":
-              return () => target.featuresLayer.clearLayers();
-          }
           return Reflect.get(target, prop, receiver);
         },
         set: (target, prop, value, receiver) => {

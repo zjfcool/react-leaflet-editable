@@ -13,37 +13,36 @@ type HookLayer = Polygon & {
   editor: HookHoleEditor;
 };
 export default function EditTest() {
-  const mapRef = useRef<LeafletEditableHandleProps>(null);
+  const editToolsRef = useRef<LeafletEditableHandleProps>(null);
   const redoArr = useRef<LatLng[]>([]);
   const tooltipRef = useRef<HTMLSpanElement | null>(null);
 
   const editPolygon = useCallback(() => {
-    console.log(mapRef.current);
-    mapRef.current?.startPolygon();
-  }, [mapRef]);
+    editToolsRef.current?.startPolygon();
+  }, [editToolsRef]);
   const editPolyline = useCallback(() => {
-    mapRef.current?.startPolyline();
-  }, [mapRef]);
+    editToolsRef.current?.startPolyline();
+  }, [editToolsRef]);
   const editCircle = useCallback(() => {
-    mapRef.current?.startCircle();
-  }, [mapRef]);
+    editToolsRef.current?.startCircle();
+  }, [editToolsRef]);
   const editCircleMarker = useCallback(() => {
-    mapRef.current?.startCircleMarker();
-  }, [mapRef]);
+    editToolsRef.current?.startCircleMarker();
+  }, [editToolsRef]);
   const editMarker = useCallback(() => {
-    mapRef.current?.startMarker();
-  }, [mapRef]);
+    editToolsRef.current?.startMarker();
+  }, [editToolsRef]);
   const editRectangle = useCallback(() => {
-    mapRef.current?.startRectangle();
-  }, [mapRef]);
-  const clearAll = useCallback(() => {
-    mapRef.current?.clearAll();
-  }, [mapRef]);
+    editToolsRef.current?.startRectangle();
+  }, [editToolsRef]);
+  const clearFeaturesLayers = useCallback(() => {
+    editToolsRef.current?.featuresLayer.clearLayers();
+  }, [editToolsRef]);
   // const editHole = useCallback(
   //   (editor) => {
-  //     mapRef.current?.startHole(editor);
+  //     editToolsRef.current?.startHole(editor);
   //   },
-  //   [mapRef],
+  //   [editToolsRef],
   // );
 
   const layerListener = useCallback((layer) => {
@@ -61,7 +60,7 @@ export default function EditTest() {
         if (e.originalEvent.ctrlKey || e.originalEvent.metaKey) {
           // layer.toggleEdit();
           // if (isPolygon) (layer).editor.newHole(e.latlng);
-          if (isPolygon) mapRef.current?.startHole((layer as HookLayer).editor, e.latlng);
+          if (isPolygon) editToolsRef.current?.startHole((layer as HookLayer).editor, e.latlng);
         } else if (e.originalEvent.shiftKey) {
           layer.remove();
           // 该函数会触发onShapeDeleted,onShapeDelete 回调函数
@@ -115,15 +114,14 @@ export default function EditTest() {
   // 后退：Ctrl+Z，前进：Shift+Z
   const redoListener = useCallback(() => {
     function keydownHandler(e) {
-      if (!mapRef.current) return;
-      const editTools = mapRef.current.editTools;
-      console.log(editTools, mapRef.current);
-      if (!mapRef.current._drawingEditor) return;
+      if (!editToolsRef.current) return;
+      if (!editToolsRef.current._drawingEditor) return;
       if (e.key.toLowerCase() === "z") {
         if (e.shiftKey) {
-          if (redoArr.current.length) mapRef.current._drawingEditor.push(redoArr.current.pop());
+          if (redoArr.current.length)
+            editToolsRef.current._drawingEditor.push(redoArr.current.pop());
         } else if (e.ctrlKey || e.metaKey) {
-          const latlng = mapRef.current._drawingEditor.pop();
+          const latlng = editToolsRef.current._drawingEditor.pop();
           if (latlng) redoArr.current.push(latlng);
         }
       }
@@ -136,12 +134,10 @@ export default function EditTest() {
   }, []);
   const onDrawingEnd = useCallback(
     (e) => {
-      console.log("onDrawingEnd", mapRef.current, e);
       redoArr.current = [];
       removeTooltip();
       layerListener(e.layer);
       // editHole(e.layer.editor);
-      console.log(e.layer instanceof Polygon);
     },
     [removeTooltip, layerListener],
   );
@@ -167,7 +163,7 @@ export default function EditTest() {
       center={[35, 105]}
     >
       <LeafletEditable
-        ref={mapRef}
+        ref={editToolsRef}
         onDrawingStart={onDrawingStart}
         onDrawingClick={onDrawingClick}
         onDrawingEnd={onDrawingEnd}
@@ -261,7 +257,7 @@ export default function EditTest() {
       ></LeafletEditable>
       <TileLayer url="https://t0.tianditu.gov.cn/DataServer?T=img_w&X={x}&Y={y}&L={z}&tk=b6afc1ba1ece9d7346c30ba57f8c7298" />
       <div className="btn-group">
-        <button title="清除所有编辑图层" onClick={clearAll} className="editable-btn">
+        <button title="清除所有图层" onClick={clearFeaturesLayers} className="editable-btn">
           <i className="iconfont iconqingchu"></i>
         </button>
         <button title="编辑多边形" onClick={editPolygon} className="editable-btn">

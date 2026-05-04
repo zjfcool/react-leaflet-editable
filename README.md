@@ -1,120 +1,62 @@
-# react-leaflet-editable
+# react-leaflet-editable[![](https://img.shields.io/npm/v/react-leaflet-editable.svg)](https://www.npmjs.com/package/react-leaflet-editable)
 
-[![](https://img.shields.io/npm/v/react-leaflet-editable.svg)](https://www.npmjs.com/package/react-leaflet-editable)
-[to v0.1.1 base react-leaflet^2.x.x](https://github.com/zjfcool/react-leaflet-editable/blob/master/README.v0.1.1.md)
+Leaflet.Editable for React-Leaflet (>=4.0.0)
 
-This is a lightweight react component build on top of [react-leaflet^3.x.x](https://github.com/PaulLeCam/react-leaflet) that integrate [leaflet-editable](https://github.com/Leaflet/Leaflet.Editable/)feature. It only provides map editing API, and you can easily organize your own UI.
+## Demo
 
-# Example
+[example](https://zjfcool.github.io/react-leaflet-editable/)
 
-See the [DEMO](https://zjfcool.github.io/react-leaflet-editable/examples/dist)
+## Installation
 
-![GIF](https://github.com/zjfcool/react-leaflet-editable/blob/master/public/map.gif)
-
-# How to use
-
-## Install
-
-```javascript
-npm install react-leaflet-editable -S
+```bash
+npm install react-leaflet-editable
 ```
 
-## Introducing dependency and import component
+## Quick Start
 
-`Note: `
+### Notes
 
-- Install `react-leaflet` and `leaflet-eidtable` before import `react-leaflet-editable`
-- MapContainer component must have `editable = true` attribute
-- ReactLeafletEditable component must have `map` attribute
+- Import `leaflet-editable` before rendering.
+- Ensure `MapContainer` has `editable={true}`.
+- Must be rendered inside a `MapContainer`.
+- The forwarded ref (`editToolsRef.current`) is a proxy to the `Leaflet.Editable` instance's `editTools`, exposing all its methods and properties.
 
-```javascript
-import React, { useRef } from 'react'
-import L, { Icon } from 'leaflet'
-import 'leaflet-editable'
-import ReactLeafletEditable from 'react-leaflet-editable';
-import { MapContainer, TileLayer } from 'react-leaflet'
-import 'leaflet/dist/leaflet.css'
+```tsx
+import "leaflet/dist/leaflet.css";
+import "leaflet-editable";
+import { MapContainer, TileLayer } from "react-leaflet";
+import { LeafletEditable, type LeafletEditableHandleProps } from "react-leaflet-editable";
+import { useRef } from "react";
 
-function Demo (){
-    const editRef = useRef();
-    const [map, setMap] = useState();
-    // 编辑一个多边形
-    const editPolygon = () => {
-        editRef.current.startPolygon()
-    }
-    render(){
-        return(
-             <ReactLeafletEditable
-                ref={editRef}
-                map={map}
-             >
-                <MapContainer
-                    editable={true}
-                    zoom={4}
-                    maxZoom={18}
-                    center={[35, 105]}
-                    whenCreated={setMap}>
-                    <button
-                        onClick={editPolygon}
-                        className="editable-btn"
-                    >polygon</button>
-                    <TileLayer url="xxx" />
-                </MapContainer>
-            </ReactLeafletEditable>
-        )
-    }
+function Demo() {
+  const editToolsRef = useRef<LeafletEditableHandleProps>(null);
+
+  const startPolygon = () => {
+    editToolsRef.current.startPolygon();
+  };
+
+  return (
+    <MapContainer center={[35, 105]} zoom={4} style={{ height: "100vh" }} editable={true}>
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <LeafletEditable ref={editToolsRef} />
+      <button onClick={startPolygon}>Start Polygon</button>
+    </MapContainer>
+  );
 }
 ```
 
-# Component API
+## API
 
-## Props
+[Leaflet.Editable API](http://leaflet.github.io/Leaflet.Editable/doc/api.html)
 
-| name                       |   type   |                        description                         | params  |
-| -------------------------- | :------: | :--------------------------------------------------------: | :-----: |
-| onEditing                  | function |        hook to leaflet-editable `editable:editing`         | (e,map) |
-| onEnable                   | function |         hook to leaflet-editable `editable:enable`         | (e,map) |
-| onDisable                  | function |        hook to leaflet-editable `editable:disable`         | (e,map) |
-| onStartDrawing             | function |     hook to leaflet-editable `editable:drawing:start`      | (e,map) |
-| onDrawingClick             | function |     hook to leaflet-editable `editable:drawing:click`      | (e,map) |
-| onDrawingCommit            | function |     hook to leaflet-editable `editable:drawing:commit`     | (e,map) |
-| onDrawingMouseDown         | function |   hook to leaflet-editable `editable:drawing:mousedown`    | (e,map) |
-| onDrawingMouseUp           | function |    hook to leaflet-editable `editable:drawing:mouseup`     | (e,map) |
-| onDrawingMove              | function |      hook to leaflet-editable `editable:drawing:move`      | (e,map) |
-| onCancelDrawing            | function |     hook to leaflet-editable `editable:drawing:cancel`     | (e,map) |
-| onEndDrawing               | function |      hook to leaflet-editable `editable:drawing:end`       | (e,map) |
-| onDragStart                | function |       hook to leaflet-editable `editable:dragstart`        | (e,map) |
-| onDrag                     | function |          hook to leaflet-editable `editable:drag`          | (e,map) |
-| onDragEnd                  | function |        hook to leaflet-editable `editable:dragend`         | (e,map) |
-| onVertexMarkerDrag         | function |      hook to leaflet-editable `editable:vertex:drag`       | (e,map) |
-| onVertexMarkerDragStart    | function |    hook to leaflet-editable `editable:vertex:dragstart`    | (e,map) |
-| onVertexMarkerDragEnd      | function |     hook to leaflet-editable `editable:vertex:dragend`     | (e,map) |
-| onVertextCtrlClick         | function |    hook to leaflet-editable `editable:vertex:ctrlclick`    | (e,map) |
-| onNewVertex                | function |       hook to leaflet-editable `editable:vertex:new`       | (e,map) |
-| onVertexMarkerClick        | function |      hook to leaflet-editable `editable:vertex:click`      | (e,map) |
-| onVertexRawMarkerClick     | function |    hook to leaflet-editable `editable:vertex:rawclick`     | (e,map) |
-| onVertexDeleted            | function |     hook to leaflet-editable `editable:vertex:deleted`     | (e,map) |
-| onVertexMarkerCtrlClick    | function |    hook to leaflet-editable `editable:vertex:ctrlclick`    | (e,map) |
-| onVertexMarkerShiftClick   | function |   hook to leaflet-editable `editable:vertex:shiftclick`    | (e,map) |
-| onVertexMarkerMetaKeyClick | function |  hook to leaflet-editable `editable:vertex:metakeyclick`   | (e,map) |
-| onVertexMarkerAltClick     | function |    hook to leaflet-editable `editable:vertex:altclick`     | (e,map) |
-| onVertexMarkerContextMenu  | function |   hook to leaflet-editable `editable:vertex:contextmenu`   | (e,map) |
-| onVertexMarkerMouseDown    | function |    hook to leaflet-editable `editable:vertex:mousedown`    | (e,map) |
-| onVertexMarkerMouseOver    | function |    hook to leaflet-editable `editable:vertex:mouseover`    | (e,map) |
-| onVertexMarkerMouseOut     | function |    hook to leaflet-editable `editable:vertex:mouseout`     | (e,map) |
-| onMiddleMarkerMouseDown    | function | hook to leaflet-editable `editable:middlemarker:mousedown` | (e,map) |
-| onShapeNew                 | function |       hook to leaflet-editable `editable:shape:new`        | (e,map) |
-| onShapeDelete              | function |      hook to leaflet-editable `editable:shape:delete`      | (e,map) |
-| onShapeDeleted             | function |     hook to leaflet-editable `editable:shape:deleted`      | (e,map) |
+### Props
 
-## Methods
+Pass event callback props to listen for `Leaflet.Editable` events (e.g., `onDrawingStart` → `editable:drawing:start`).
 
-| name           |   type   |         description         |     params      |
-| -------------- | :------: | :-------------------------: | :-------------: |
-| startPolygon   | function | start edit a polygon layer  |                 |
-| startPolyline  | function | start edit a polyline layer |                 |
-| startMarker    | function |  start edit a marker layer  |                 |
-| startRectangle | function |   start edit a rect layer   |                 |
-| startCircle    | function |  start edit a circle layer  |                 |
-| startHole      | function |   start edit a hole layer   | (editor,latlng) |
-| clearAll       | function |  clear all editing layers   |                 |
+### Methods
+
+`editToolsRef.current` exposes all `Leaflet.Editable` `editTools` methods and properties.
+
+## License
+
+[MIT](LICENSE.md)

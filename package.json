@@ -10,8 +10,8 @@
     "lint:fmt": "oxfmt --write",
     "lint:cspell": "cspell",
     "prepare": "lefthook install",
-    "changeset": "pnpm changeset",
-    "version": "pnpm changeset version"
+    "change": "pnpm changeset",
+    "change:v": "pnpm changeset version"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
