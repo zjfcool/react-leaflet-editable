@@ -27,7 +27,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build editable
-        run: pnpm run build:editable
+        run: pnpm run build:line
 
       - name: Copy to docs folder (GitHub Pages source)
         run: |
