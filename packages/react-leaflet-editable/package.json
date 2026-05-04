@@ -30,8 +30,8 @@
     }
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch src",
+    "build": "NODE_ENV=production tsup",
+    "dev": "NODE_ENV=development tsup --watch src",
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {

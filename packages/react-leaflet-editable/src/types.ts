@@ -88,23 +88,14 @@ export interface LeafletEditableHandleProps extends Evented {
   commitDrawing(event: LeafletMouseEvent): void;
   connectCreatedToMap(layer: Layer): void;
   createCircle(latlng: LatLng, options?: CircleMarkerOptions): Circle;
-  createCircleMarker(
-    latlng: LatLng,
-    options?: CircleMarkerOptions,
-  ): CircleMarker;
+  createCircleMarker(latlng: LatLng, options?: CircleMarkerOptions): CircleMarker;
   createEditLayer(): LayerGroup;
   createFeaturesLayer(): LayerGroup;
   createLayer(klass: any, latlngs: any, options?: any): Layer;
   createLineGuide(): Polyline;
   createMarker(latlng: LatLng, options?: MarkerOptions): Marker;
-  createPolygon(
-    latlngs: LatLng[] | LatLng[][],
-    options?: PolylineOptions,
-  ): Polygon;
-  createPolyline(
-    latlngs: LatLng[] | LatLng[][],
-    options?: PolylineOptions,
-  ): Polyline;
+  createPolygon(latlngs: LatLng[] | LatLng[][], options?: PolylineOptions): Polygon;
+  createPolyline(latlngs: LatLng[] | LatLng[][], options?: PolylineOptions): Polyline;
   createRectangle(bounds: any, options?: PolylineOptions): Rectangle;
   createVertexIcon(options: any): HTMLElement;
   detachBackwardLineGuide(): void;
@@ -125,10 +116,7 @@ export interface LeafletEditableHandleProps extends Evented {
   startMarker(latLng?: LatLng, options?: MarkerOptions): Marker;
   startRectangle(latLng?: LatLng, options?: PolylineOptions): Rectangle;
   startCircle(latLng?: LatLng, options?: CircleMarkerOptions): Circle;
-  startCircleMarker(
-    latLng?: LatLng,
-    options?: CircleMarkerOptions,
-  ): CircleMarker;
+  startCircleMarker(latLng?: LatLng, options?: CircleMarkerOptions): CircleMarker;
   startHole(editor: HookHoleEditor, latlng?: LatLng): void;
   [key: string]: any;
 }
