@@ -1,0 +1,44 @@
+name: Deploy editable GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "examples/editable/**"
+      - ".github/workflows/deploy-editable.yml"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 25
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build editable
+        run: pnpm run build:editable
+
+      - name: Copy to docs folder (GitHub Pages source)
+        run: |
+          rm -rf docs
+          mkdir -p docs
+          cp -r examples/editable/dist/* docs/
+          touch docs/.nojekyll
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages # 将构建内容推送到 gh-pages 分支

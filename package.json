@@ -5,7 +5,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint:demo": "turbo run lint --filter=editable",
+    "build:editable": "turbo run build --filter=editable",
+    "lint:editable": "turbo run lint --filter=editable",
     "lint": "oxlint",
     "lint:fmt": "oxfmt --write",
     "lint:cspell": "cspell",
