@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import "leaflet-editable";
-import L, { LatLng, Polygon, Rectangle } from "leaflet";
+import L, { Icon, LatLng, Polygon, Rectangle } from "leaflet";
 import { TileLayer, MapContainer } from "react-leaflet";
 import {
   LeafletEditable,
@@ -9,6 +9,18 @@ import {
 } from "react-leaflet-editable";
 import "leaflet/dist/leaflet.css";
 import "./styles.css";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadowIcon from "leaflet/dist/images/marker-shadow.png";
+import markerRetina from "leaflet/dist/images/marker-icon-2x.png";
+
+// @ts-expect-error - Icon.Default.prototype._getIconUrl is deprecated but still used by leaflet
+delete Icon.Default.prototype._getIconUrl;
+
+Icon.Default.mergeOptions({
+  iconRetinaUrl: markerRetina,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadowIcon,
+});
 type HookLayer = Polygon & {
   editor: HookHoleEditor;
 };
